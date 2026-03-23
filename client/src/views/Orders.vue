@@ -25,6 +25,10 @@
           <div class="stat-label">{{ t('status.backordered') }}</div>
           <div class="stat-value">{{ getOrdersByStatus('Backordered').length }}</div>
         </div>
+        <div class="stat-card submitted">
+          <div class="stat-label">{{ t('status.submitted') }}</div>
+          <div class="stat-value">{{ getOrdersByStatus('Submitted').length }}</div>
+        </div>
       </div>
 
       <div class="card">
@@ -42,6 +46,7 @@
                 <th class="col-date">{{ t('orders.table.orderDate') }}</th>
                 <th class="col-date">{{ t('orders.table.expectedDelivery') }}</th>
                 <th class="col-value">{{ t('orders.table.totalValue') }}</th>
+                <th class="col-lead-time">Lead Time</th>
               </tr>
             </thead>
             <tbody>
@@ -69,6 +74,10 @@
                 <td class="col-date">{{ formatDate(order.order_date) }}</td>
                 <td class="col-date">{{ formatDate(order.expected_delivery) }}</td>
                 <td class="col-value"><strong>{{ currencySymbol }}{{ order.total_value.toLocaleString() }}</strong></td>
+                <td class="col-lead-time">
+                  <span v-if="order.lead_time_days != null">{{ order.lead_time_days }}d</span>
+                  <span v-else style="color:#cbd5e1">—</span>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -138,7 +147,8 @@ export default {
         'Delivered': 'success',
         'Shipped': 'info',
         'Processing': 'warning',
-        'Backordered': 'danger'
+        'Backordered': 'danger',
+        'Submitted': 'submitted'
       }
       return statusMap[status] || 'info'
     }
@@ -178,6 +188,10 @@ export default {
   width: 100%;
 }
 
+.stat-card.submitted .stat-value {
+  color: #7c3aed;
+}
+
 /* Column widths */
 .col-order-number {
   width: 130px;
@@ -201,6 +215,10 @@ export default {
 
 .col-value {
   width: 120px;
+}
+
+.col-lead-time {
+  width: 90px;
 }
 
 /* Items details styling */

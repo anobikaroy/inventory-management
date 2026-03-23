@@ -80,6 +80,17 @@ class Order(BaseModel):
     actual_delivery: Optional[str] = None
     warehouse: Optional[str] = None
     category: Optional[str] = None
+    lead_time_days: Optional[int] = None
+
+class RestockingOrderItem(BaseModel):
+    sku: str
+    name: str
+    quantity: int
+    unit_price: float
+
+class CreateRestockingOrderRequest(BaseModel):
+    items: List[RestockingOrderItem]
+    total_value: float
 
 class DemandForecast(BaseModel):
     id: str
@@ -152,6 +163,29 @@ def get_orders(
     filtered_orders = apply_filters(orders, warehouse, category, status)
     filtered_orders = filter_by_month(filtered_orders, month)
     return filtered_orders
+
+@app.post("/api/orders/restocking", response_model=Order, status_code=201)
+def create_restocking_order(request: CreateRestockingOrderRequest):
+    """Create a restocking order from demand forecast recommendations"""
+    from datetime import datetime, timedelta
+    import uuid
+    now = datetime.utcnow()
+    lead_time_days = 7
+    new_order = {
+        "id": str(uuid.uuid4()),
+        "order_number": f"RST-{now.year}-{str(uuid.uuid4())[:4].upper()}",
+        "customer": "Internal Restocking",
+        "items": [item.dict() for item in request.items],
+        "status": "Submitted",
+        "order_date": now.isoformat(),
+        "expected_delivery": (now + timedelta(days=lead_time_days)).isoformat(),
+        "total_value": request.total_value,
+        "warehouse": None,
+        "category": None,
+        "lead_time_days": lead_time_days
+    }
+    orders.append(new_order)
+    return new_order
 
 @app.get("/api/orders/{order_id}", response_model=Order)
 def get_order(order_id: str):

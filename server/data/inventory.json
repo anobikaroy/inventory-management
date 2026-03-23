@@ -382,5 +382,41 @@
     "unit_cost": 185.50,
     "location": "Warehouse C-11",
     "last_updated": "2025-09-21T15:20:00"
+  },
+  {
+    "id": "33",
+    "sku": "WDG-001",
+    "name": "Industrial Widget Type A",
+    "category": "Actuators",
+    "warehouse": "San Francisco",
+    "quantity_on_hand": 120,
+    "reorder_point": 200,
+    "unit_cost": 45.00,
+    "location": "Warehouse C-01",
+    "last_updated": "2025-09-30T10:30:00"
+  },
+  {
+    "id": "34",
+    "sku": "GSK-203",
+    "name": "Heavy Duty Gasket Set",
+    "category": "Actuators",
+    "warehouse": "London",
+    "quantity_on_hand": 85,
+    "reorder_point": 150,
+    "unit_cost": 18.50,
+    "location": "Warehouse B-07",
+    "last_updated": "2025-09-30T10:30:00"
+  },
+  {
+    "id": "35",
+    "sku": "FLT-405",
+    "name": "Industrial Filter Assembly",
+    "category": "Actuators",
+    "warehouse": "Tokyo",
+    "quantity_on_hand": 60,
+    "reorder_point": 100,
+    "unit_cost": 32.75,
+    "location": "Warehouse A-15",
+    "last_updated": "2025-09-30T10:30:00"
   }
 ]

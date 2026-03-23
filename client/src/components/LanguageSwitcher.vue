@@ -134,8 +134,9 @@ const selectLanguage = (locale) => {
 
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 0.5rem);
-  right: 0;
+  bottom: calc(100% + 0.5rem);
+  left: 0;
+  right: auto;
   min-width: 160px;
   background: white;
   border: 1px solid #e2e8f0;
