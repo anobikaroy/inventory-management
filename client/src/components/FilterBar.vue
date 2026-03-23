@@ -51,6 +51,7 @@
             <option value="shipped">{{ t('status.shipped') }}</option>
             <option value="processing">{{ t('status.processing') }}</option>
             <option value="backordered">{{ t('status.backordered') }}</option>
+            <option value="submitted">{{ t('status.submitted') }}</option>
           </select>
         </div>
       </div>
@@ -103,11 +104,9 @@ export default {
 <style scoped>
 .filters-bar {
   background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: none;
   padding: 0.75rem 0;
-  position: sticky;
-  top: 70px;
-  z-index: 90;
+  /* top is now 0 because FilterBar sits inside .top-bar which is already sticky */
 }
 
 .filters-container {
